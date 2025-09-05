@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% load humanize %}
+{% block content %}
+        <h1>Tasks</h1>
+        <p><a href="{% url 'task_create' %}">New Task</a></p>
+
+        <ul>
+            {% for t in page_obj.object_list %}
+                <li>
+                    <strong>{{t.title}}</strong> - {{t.status}} - {{t.created_at|naturaltime}}
+                    |
+                    <a href="{% url 'task_edit' t.pk %}">Edit</a> |
+                    <a href="{% url 'task_delete' t.pk %}">Remove</a> |
+                    <a href="{% url 'task_toggle_status' t.pk %}">
+                        {% if t.status == "Completed" %}Mark as pending{% else %}Mark as Completed{% endif %}
+                    </a>
+                </li>
+            {% empty %}
+                <li>Not tasks yet.</li>
+            {% endfor %}
+        </ul>
+
+        <div>
+            {% if page_obj.has_previous %}
+                <a href="?page={{ page_obj.previous_page_number}}">Previous</a>
+            {% endif %}
+            <span>Page {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}</span>
+            {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}">Next</a>
+            {% endif %}
+        </div>
+{% endblock %}

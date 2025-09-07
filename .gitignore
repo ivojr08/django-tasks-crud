@@ -1,0 +1,12 @@
+# Python
+__pycache__/
+*.pyc
+
+# Django
+db.sqlite3
+
+# Virtualenvs
+P313venv/
+
+# Env
+.env

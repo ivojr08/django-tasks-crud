@@ -3,7 +3,8 @@
 ## Continuous learning schedule (backend Django)
 - **Day 1**: CRUD with Django + templates (HTML)
 - **Day 2**: API REST with DRF (serializers, viewsets, filters, toggle, tests)
-- **Day 3**: (shortly)...
+- **Day 3**: JWT Authentication + User Protection + Login/Logout Screen + Testing
+- **Day 4**: (shortly...)
 
 Example application in Django 5.2.6 to manage tasks (full CRUD):
 - Create
@@ -13,17 +14,21 @@ Example application in Django 5.2.6 to manage tasks (full CRUD):
 - Toggle status (Pending/Completed)
 - Success/Error messages
 - Humanized dates
+- JWT authentication (API)
+- Login/logout screen (HTML interface)
 
 ## Stack Utilizada
 - Python 3.13
 - Django 5.2
-- SQLite (banco de dados local)
+- Django REST Framework
+- JWT (djangorestframework-simplejwt)
+- SQLite (local db)
 
 ## Estrutura
-- tarefas/ -> projeto Django
-- tasks/ -> app principal com modelos, views e templates
-- templates/ -> base e páginas HTML
-- tests_api.py -> testes de API
+- tarefas/ -> Django project
+- tasks/ -> main app with models, views and templates
+- templates/ -> base and pages HTML
+- tests_api.py -> API tests
 
 ## How to run locally
 - git clone https://github.com/ivojr08/django-tasks-crud.git
@@ -35,6 +40,8 @@ Example application in Django 5.2.6 to manage tasks (full CRUD):
 - python manage.py runserver
 
 ## Endpoints API REST
+- POST /api/auth/token/refresh/ -> refresh token
+- POST /api/auth/token/ -> login (access + refresh JWT)
 - GET /api/tasks/ -> pagination list
 - POST /api/tasks/ - create task (title, description, done)
 - GET /api/tasks/{id}/ -> detail

@@ -6,11 +6,12 @@ class TaskSerializer(serializers.ModelSerializer):
     # writeable: if client send "done": true/false, convert to status
     # readable: always return calculated done
     done = serializers.BooleanField(required=False)
+    owner = serializers.IntegerField(source='owner_id', read_only=True)
     
     class Meta:
         model = Task
-        fields = ['id', 'title', 'description', 'status', 'done', 'created_at']
-        read_only_fields = ['id', 'created_at']
+        fields = ['id', 'title', 'description', 'status', 'done', 'created_at', 'owner']
+        read_only_fields = ['id', 'created_at', 'owner']
 
     # business rules / validations
     def validate_title(self, value: str):

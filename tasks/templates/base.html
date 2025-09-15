@@ -1,14 +1,106 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-    <head><meta charset="utf-8"><title>Tasks</title></head>
-    <body>
+<head>
+    <meta charset="utf-8">
+    <title>Tasks</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #f8f9fa;
+            color: #333;
+        }
+        nav {
+            background: #343a40;
+            color: #fff;
+            padding: 12px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            margin-left: 15px;
+            font-weight: bold;
+        }
+        nav a:hover { text-decoration: underline; }
+        .logout-btn {
+            background: none;
+            border: none;
+            color: #fff;
+            font-weight: bold;
+            cursor: pointer;
+            padding: 0;
+            margin-left: 15px;
+            text-decoration: none;
+        }
+        .logout-btn:hover { text-decoration: underline; }
+
+        .container {
+            max-width: 800px;
+            margin: 30px auto;
+            padding: 20px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        }
+
+        .messages {
+            list-style: none;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        .messages li {
+            padding: 8px 12px;
+            margin-bottom: 8px;
+            border-radius: 5px;
+            background: #e9ecef;
+        }
+
+        footer {
+            margin-top: 40px;
+            text-align: center;
+            padding: 10px;
+            font-size: 0.9em;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div>
+            <a href="/">Tasks</a>
+        </div>
+        <div>
+            {% if user.is_authenticated %}
+                Olá, {{ user.username }}
+                <form action="{% url 'logout' %}" method="post" style="display:inline;">
+                    {% csrf_token %}
+                    <button type="submit" class="logout-btn">Logout</button>
+                </form>
+            {% else %}
+                <a href="{% url 'login' %}">Enter</a>
+            {% endif %}
+        </div>
+    </nav>
+
+    <div class="container">
         {% if messages %}
-            <ul>
+            <ul class="messages">
                 {% for m in messages %}
-                    <li>{{m}}</li>
+                    <li>{{ m }}</li>
                 {% endfor %}
             </ul>
         {% endif %}
+
         {% block content %}{% endblock %}
-    </body>
+    </div>
+
+    <footer>
+        &copy; {{ now|date:"Y" }} Task Manager — Treinamento Técnico
+    </footer>
+</body>
 </html>
